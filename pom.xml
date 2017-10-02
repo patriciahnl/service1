@@ -14,6 +14,9 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.3.RELEASE</version>
     </parent>
+    <properties>
+	<docker.image.prefix>localhost:5000</docker.image.prefix>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -40,11 +43,12 @@
 	        <artifactId>docker-maven-plugin</artifactId>
 	        <version>0.4.11</version>
 			<configuration>
-				<dockerHost>http://10.9.8.120:4243</dockerHost>
+				<!--dockerHost>http://10.9.8.120:4243</dockerHost-->
 				<serverId>docker-registry</serverId>
-				<registryUrl>https://10.9.8.117:443</registryUrl>
+				<!--registryUrl>https://10.9.8.117:443</registryUrl-->
+				<registryUrl>localhost:5000</registryUrl>
 			
-				<imageName>${project.artifactId}:${project.version}</imageName> 					
+				<imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName> 					
 				<dockerDirectory>src/main</dockerDirectory> 					
 				<resources> 						
 					<resource> 							

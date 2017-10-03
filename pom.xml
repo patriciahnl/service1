@@ -16,7 +16,8 @@
     </parent>
 
     <properties> 	
-	<docker.image.prefix>localhost:5000</docker.image.prefix>     
+		<docker.image.prefix.local>localhost:5000</docker.image.prefix.local>        
+		<docker.image.prefix.ciserver>10.9.8.117:443</docker.image.prefix.ciserver>     
     </properties>
 
     <dependencies>
@@ -33,38 +34,78 @@
 
     </dependencies>
     
-    <build>
-      <plugins>
+	
+	<profiles>
+		<profile>
+		<id>local</id>
+		<activation>true</activation>
+			<build>
+			<plugins>
 	  
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
 
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<configuration>
-					<dockerHost>http://10.9.8.120:4243</dockerHost>
-					<serverId>docker-registry</serverId>
-					<registryUrl>https://10.9.8.117:443</registryUrl>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<!--dockerHost>http://10.9.8.120:4243</dockerHost-->
+						<serverId>docker-registry</serverId>
+						<registryUrl>localhost:5000</registryUrl>
 			
-					<imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName> 					
-					<dockerDirectory>src/main</dockerDirectory> 					
-					<resources> 						
-						<resource> 							
-							<targetPath>/</targetPath> 							
-							<directory>${project.build.directory}</directory> 							
-							<include>${project.build.finalName}.jar</include> 						
-						</resource> 					
-					</resources>
+						<imageName>${docker.image.prefix.local}/${project.artifactId}:${project.version}</imageName> 					
+						<dockerDirectory>src/main</dockerDirectory> 					
+						<resources> 						
+							<resource> 							
+								<targetPath>/</targetPath> 							
+								<directory>${project.build.directory}</directory> 							
+								<include>${project.build.finalName}.jar</include> 						
+							</resource> 					
+						</resources>
 				</configuration>
 			</plugin>       
 
 		</plugins>
     </build>
-	
+	     <profile>        
+		 <id>ciserver</id>      
+			<build>       
+			<plugins>              
+				<plugin>                 
+					<groupId>org.springframework.boot</groupId>              
+					<artifactId>spring-boot-maven-plugin</artifactId>          
+				</plugin>            
+			
+				<plugin>               
+					<groupId>com.spotify</groupId>               
+					<artifactId>docker-maven-plugin</artifactId>        
+					<version>1.0.0</version>                     
+					<configuration>                              
+						<!--dockerHost>http://10.9.8.120:4243</dockerHost-->                
+						<serverId>docker-registry</serverId>                            
+						<registryUrl>https://10.9.8.117:443</registryUrl>               
+						<!--registryUrl>localhost:5000</registryUrl-->                        
+						<imageName>${docker.image.prefix.ciserver}/${project.artifactId}:${project.version}</imageName>            
+						<dockerDirectory>src/main</dockerDirectory>                    
+						<resources>                                  
+							<resource>                                  
+								<targetPath>/</targetPath>                        
+								<directory>${project.build.directory}</directory>       
+								<include>${project.build.finalName}.jar</include>           
+							</resource>                          
+						</resources>                 
+					</configuration>      
+				</plugin>   
+			</plugins>     
+			</build>    
+		</profile>   
+	</profiles>
+		 
+		 
+		 
 	<repositories>
         <repository>
             <id>spring-releases</id>
@@ -77,5 +118,6 @@
             <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
         </pluginRepository>
-</pluginRepositories>
+	</pluginRepositories>
+
 </project>

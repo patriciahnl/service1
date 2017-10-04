@@ -38,7 +38,9 @@
 	<profiles>
 		<profile>
 		<id>local</id>
-		<activation>true</activation>
+		<activation>
+                     <activeByDefault>true</activeByDefault>
+                </activation>
 			<build>
 			<plugins>
 	  
@@ -70,7 +72,8 @@
 
 		</plugins>
     </build>
-	     <profile>        
+	     </profile>
+        <profile>        
 		 <id>ciserver</id>      
 			<build>       
 			<plugins>              

@@ -54,7 +54,6 @@
 					<artifactId>docker-maven-plugin</artifactId>
 					<version>1.0.0</version>
 					<configuration>
-						<!--dockerHost>http://10.9.8.120:4243</dockerHost-->
 						<serverId>docker-registry</serverId>
 						<registryUrl>localhost:5000</registryUrl>
 			
@@ -90,7 +89,6 @@
 						<dockerHost>http://10.9.8.120:4243</dockerHost>                
 						<serverId>docker-registry</serverId>                            
 						<registryUrl>https://10.9.8.117:443</registryUrl>               
-						<!--registryUrl>localhost:5000</registryUrl-->                        
 						<imageName>${docker.image.prefix.ciserver}/${project.artifactId}:${project.version}</imageName>            
 						<dockerDirectory>src/main</dockerDirectory>                    
 						<resources>                                  

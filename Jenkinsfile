@@ -11,7 +11,7 @@ node('docker-slave') {
   
   stage('Deploy to registry'){
      sh '''
-    mvn clean package docker:push
+    mvn clean package docker:push -Pciserver
    '''   
   }
 }

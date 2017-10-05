@@ -4,7 +4,9 @@ node('docker-slave') {
   }
   
   stage('Build Docker Image'){
+    sh '''
     mvn clean package
+   '''
   }
   
   stage('Deploy to registry'){

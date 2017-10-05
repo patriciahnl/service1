@@ -5,11 +5,13 @@ node('docker-slave') {
   
   stage('Build Docker Image'){
     sh '''
-    mvn clean package
+    mvn clean package docker:build -Pciserver
    '''
   }
   
   stage('Deploy to registry'){
-    
+     sh '''
+    mvn clean package docker:push
+   '''   
   }
 }

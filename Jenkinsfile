@@ -14,4 +14,7 @@ node('docker-slave') {
     mvn docker:push -Pciserver
    '''   
   }
+  stage('Mircea'){
+   echo "DEemo"
+ }
 }

@@ -58,7 +58,7 @@
 						<registryUrl>localhost:5000</registryUrl>
 			
 						<imageName>${docker.image.prefix.local}/${project.artifactId}:${project.version}</imageName> 					
-						<dockerDirectory>src/main</dockerDirectory> 					
+						<dockerDirectory>src/main/docker</dockerDirectory> 					
 						<resources> 						
 							<resource> 							
 								<targetPath>/</targetPath> 							
@@ -90,7 +90,7 @@
 						<serverId>docker-registry</serverId>                            
 						<registryUrl>https://10.9.8.117:443</registryUrl>               
 						<imageName>${docker.image.prefix.ciserver}/${project.artifactId}:${project.version}</imageName>            
-						<dockerDirectory>src/main</dockerDirectory>                    
+						<dockerDirectory>src/main/docker</dockerDirectory>                    
 						<resources>                                  
 							<resource>                                  
 								<targetPath>/</targetPath>                        
